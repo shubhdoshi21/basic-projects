@@ -1,26 +1,38 @@
-import React from 'react'
+import React, { useState } from "react";
+import ToDoItem from "./ToDoItem";
+import AddToDo from "./AddToDo";
 
 const ToDo = () => {
+  const [toDo, setToDo] = useState([]);
+  const handleAddToDo = (taskName, taskDate) => {
+    const newToDo = [...toDo, { task: taskName, date: taskDate }];
+    setToDo(newToDo);
+  };
+  const handleDeleteToDo = (task) => {
+    const updatedToDo = toDo.filter((t) => t.task !== task);
+    setToDo(updatedToDo);
+  };
   return (
-    <center className="">
+    <center>
       <h1 className="p-2 fw-semibold">ToDo List</h1>
       <div className="container">
-        <div className="row">
-          <div className="col-6">
-            <input type="text" placeholder="Enter ToDo here" />
+        <AddToDo handleAddToDo={handleAddToDo} />
+        {toDo.length === 0 && (
+          <div className="alert alert-info p-2" style={{ width: "400px" }}>
+            Enjoy your day !!
           </div>
-          <div className="col-4">
-            <input type="date" />
-          </div>
-          <div className="col-2">
-            <button type="button" className="btn btn-success">
-              Add
-            </button>
-          </div>
-        </div>
+        )}
+        {toDo.map((data, index) => (
+          <ToDoItem
+            key={index}
+            task={data.task}
+            date={data.date}
+            handleDeleteToDo={handleDeleteToDo}
+          />
+        ))}
       </div>
     </center>
-  )
-}
+  );
+};
 
-export default ToDo
+export default ToDo;
