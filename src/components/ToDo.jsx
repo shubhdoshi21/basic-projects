@@ -21,7 +21,7 @@ const ToDo = () => {
           <div className="alert alert-info p-2" style={{ width: "400px" }}>
             Enjoy your day !!
           </div>
-        )}
+        )} 
         {toDo.map((data, index) => (
           <ToDoItem
             key={index}
